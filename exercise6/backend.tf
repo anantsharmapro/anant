@@ -1,4 +1,4 @@
-terraform {
+ terraform {
   backend "s3" {
     bucket = "terra-state-dove"
     key    = "terraform/backend_exercise6"
