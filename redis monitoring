@@ -1,0 +1,62 @@
+Scorpion
+
+hemanth_an@cloudshell:~ (scorpion-k8s-workloads)$ kubectl top pods -n common | grep redis
+gt-redis-master-0                         10m          154Mi           
+gt-uas-redis-master-0                     102m         454Mi           
+hemanth_an@cloudshell:~ (scorpion-k8s-workloads)$ 
+hemanth_an@cloudshell:~ (scorpion-k8s-workloads)$ kubectl exec -it gt-uas-redis-master-0 bash -n common
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+Defaulted container "gt-uas-redis" out of: gt-uas-redis, metrics
+I have no name!@gt-uas-redis-master-0:/$ redis-cli info | grep instantaneous_ops_per_sec
+instantaneous_ops_per_sec:3281
+I have no name!@gt-uas-redis-master-0:/$ 
+I have no name!@gt-uas-redis-master-0:/$ redis-cli info | grep instantaneous_ops_per_sec
+instantaneous_ops_per_sec:3290
+
+
+
+
+
+
+
+
+
+
+
+akula
+
+ubuntu@akula-jumpbox:/opt/schemaupgradeservice$ kubectl  exec -it redis-master-0 bash -n common 
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+Defaulted container "redis" out of: redis, metrics
+I have no name!@redis-master-0:/$ 
+I have no name!@redis-master-0:/$ 
+I have no name!@redis-master-0:/$ redis-cli -h rialtini-oauth-v6-20220412.fjefpi.ng.0001.aps1.cache.amazonaws.com  -n 8  info | grep instantaneous_ops_per_sec
+instantaneous_ops_per_sec:4790
+instantaneous_input_kbps:373.68
+instantaneous_output_kbps:3018.52
+I have no name!@redis-master-0:/$ redis-cli -h rialtini-oauth-v6-20220412.fjefpi.ng.0001.aps1.cache.amazonaws.com  -n 0  info | grep instantane
+instantaneous_ops_per_sec:3740
+instantaneous_input_kbps:330.53
+instantaneous_output_kbps:2340.16
+I have no name!@redis-master-0:/$ redis-cli -h rialtini-oauth-v6-20220412.fjefpi.ng.0001.aps1.cache.amazonaws.com  -n 1  info | grep instantane
+instantaneous_ops_per_sec:3982
+instantaneous_input_kbps:321.94
+instantaneous_output_kbps:2562.81
+
+
+Akula  -- goal
+ redis 
+
+
+redis-cli -h goal-v6-20220412.fjefpi.ng.0001.aps1.cache.amazonaws.com info | grep instanta
+instantaneous_ops_per_sec:10
+instantaneous_input_kbps:0.80
+instantaneous_output_kbps:38.28
+I have no name!@redis-master-0:/$ 
+
+
+
+redis-cli CLIENT LIST | wc -l
+
+add query also in the list -- for scorpion and akula  redis
+not required for goals

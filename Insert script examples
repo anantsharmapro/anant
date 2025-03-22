@@ -1,0 +1,24 @@
+rowabsent app_properties, propertyKey = 'payroll.inmemory.comparator.process'
+<%
+insert into app_properties (propertyKey, propertyValue, description, datatype, caption, controlType, maxlength)
+values ('payroll.inmemory.comparator.process', 'payroll-comparator-inputs', 'payroll.inmemory.comparator.process', 'string', 'payroll.inmemory.comparator.process', 'text', 255);
+%>
+
+rowabsent del_empdependency, tablename = 'pl_inMemoryVsDefault' and fieldname='employee'
+<%
+insert into del_empdependency(tablename, fieldname, sortorder, criteria) values ('pl_inMemoryVsDefault','employee' , 1, null);
+%>
+
+
+<%
+insert into app_properties (propertyKey, propertyValue) values ('freshdesk.api.url','https://greythr.freshdesk.com');
+%>
+
+
+insert into app_properties (propertyKey, propertyValue)
+values ('freshdesk.api.url', 'https://greythr.freshdesk.com');
+
+
+
+insert into app_properties (propertyKey, description, caption, propertyValue, reloadable, datatype, controltype, datasource, maxlength)
+values ('freshdesk.api.key', 'Support Freshdesk Url', 'Freshdesk API URL', 'mBuKzW0BzCU3dlNThEEB', 'f', 'string', 'text', '', 255);

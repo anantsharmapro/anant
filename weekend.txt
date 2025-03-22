@@ -1,0 +1,39 @@
+weekend activity
+
+cougar
+latte
+report-engine
+mailer
+
+uas
+whistler 
+attag
+pivault
+
+adrem
+pengo
+pengi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rolling update cmd 
+ kubectl rollout restart  deployment adrem-stage  -n greythr 

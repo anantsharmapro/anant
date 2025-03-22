@@ -1,0 +1,4 @@
+root@hydra-stage-command-846cdc5fc6-nlkwj:/# hydra clients create --skip-tls-verify --id  nexora-stage  --grant-types authorization_code  --response-types code  --callbacks io.identityserver.kiosk:/oauthredirect --endpoint http://goth-stage-hydra:4445 
+OAuth 2.0 Client ID: nexora-stage
+OAuth 2.0 Client Secret: 602Vpe.Xl0RD_H6IRZ.GU~Tzqp
+root@hydra-stage-command-846cdc5fc6-nlkwj:/#

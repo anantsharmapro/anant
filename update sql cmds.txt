@@ -1,0 +1,103 @@
+
+
+command to enter devstage database 
+		cmd- psql -U majordomo -p 6432 -h postgresql devstage
+		cmd- psql -U majordomo -p 6432 -h psqldb10 gtqsg
+ 
+ 
+script execution check cmnds. 
+ set session authorization gt_demo_masterdemo1;
+ select * from tblauditcategory;
+ select * from tblauditlog limit 0;
+ select * from tblauditlog where auditcategory=1031 order by auditdate desc;
+ select * from tblauditlog where auditcategory=1031;
+ select * from app_keyvalue where key ilike '%script.version%';
+ 
+ 
+ events trigger: select cid,account,eventtype,processed,processeddate,createddate from application_event where account ='0102fcf4-2dac-40fe-a162-e630e590dbcf' order by cid desc limit 20;
+ 
+ 
+ 
+update app_properties set propertyvalue= 'gt-kafka6-zookeeper.common:2181' where cid =793;
+update app_properties set propertyvalue= 'gt-kafka6-zookeeper.common:2181' where cid =734;
+
+update app_properties set propertyvalue= 'gt-kafka6.common:9092' where cid =792;
+update app_properties set propertyvalue= 'gt-kafka6.common:9092' where cid =836;
+update app_properties set propertyvalue= 'gt-kafka6.common:9092' where cid =733;
+
+
+
+
+
+
+ 
+
+update app_properties set propertyvalue= 'kafka7-zookeeper.common:2181' where cid =793;
+update app_properties set propertyvalue= 'kafka7-zookeeper.common:2181' where cid =734;
+
+update app_properties set propertyvalue= 'kafka7.common:9092' where cid =792;
+update app_properties set propertyvalue= 'kafka7.common:9092' where cid =836;
+update app_properties set propertyvalue= 'kafka7.common:9092' where cid =733;
+ 
+ 
+ 
+ 
+ 
+ update app_properties set propertyvalue= 'gt-kafka8.common:9092' where cid =836;
+ 
+ 
+ select cid,propertykey,propertyvalue from app_properties where propertykey ilike '%url%';
+ 
+ 
+ select cid,propertykey,propertyvalue from app_properties where propertyvalue ilike '%gtleave%';
+ 
+ update app_properties set propertyvalue= 'http://gtfeeds-rialtini-rialtini.gtfeeds:8080' where cid =853;
+ 
+ 
+ update app_properties set propertyvalue= 'gtmobile-bird4-report-engine' where cid =740;
+ 
+ 
+ update app_properties set propertyvalue= 'gtevent-attendance-topic' where cid =912;
+
+<%
+create table testpatch(cid serial, schmea_version varchar(50), patch_scripts text, update_scripts text, modifiedtime timestamp without time zone);
+%>
+
+ 
+ 
+ 
+ 
+ 
+ jdbc:postgresql://192.168.211.99:6432/db01
+ 
+ update tblserverinfo set publicconnectionurl='jdbc:postgresql://192.168.221.133:6432/att' where cid=30;
+
+ update tblserverinfo set ipaddress='192.168.221.133' where cid=30;
+ 
+ 
+ event processing  - devstage
+ 
+ select cid,eventtype,creator,eventprocessedtime,eventkey,createddate,processeddate,processed,exceptionoccurred,exceptioncause,validfrom,validto,processstarttime,processedby from application_event where account = 'klop7dhy-0919-410b-bc48-3698klf6ce0d3'  order by cid desc limit 15;
+ 
+ Update application_event set processed=true where eventtype != 'event_batch_attendace-process' and processed=false;
+ 
+ 
+ 
+ select * from application_event;
+ 
+ select cid,eventbatchid,eventtype,creator,status,applicationeventid from tbleventbatchhistory;
+ 
+ 
+ select cid,eventtype,createddate,processed,processeddate from application_event order by createddate desc limit 20;
+ 
+ update application_event set processed = 'f' where cid = 1063066;
+ 
+insert into event_delayed (eventid,expired) values (1063066,'f');
+
+
+
+devstage=# select cid,propertykey,propertyvalue from app_properties where propertyvalue ilike '%cafe%';
+ cid |   propertykey   |                  propertyvalue
+-----+-----------------+--------------------------------------------------
+ 866 | GT_CAFE_VERSION | https://cafe.cdn.greytip.com/0.75.01677223675049
+(1 row)

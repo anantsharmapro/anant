@@ -1,0 +1,68 @@
+zookepper indy6 
+ubuntu@akula-jumpbox:~/up-downscaling_scripts$ kubectl get pod --all-namespaces | grep cleaner
+
+
+
+
+SELECT * FROM app_properties WHERE propertykey ilike '%redis%';
+
+redis-cli -n 11 --scan --pattern "*" --raw | xargs -I key redis-cli -n 11 del key
+
+redis-cli -n 8 --scan --pattern "*" | xargs redis-cli -n 8 DEL
+
+
+redis cache clearing (password redis)
+redis-cli -h {redis-host-name} -p {port-number} -n 0 -a {redis-password} --scan --pattern "*" | xargs redis-cli -h {redis-host-name} -p {port-number} -n 0 -a {redis-password} DEL.
+
+how to check keys in redis password enabled 
+I have no name!@redis-pwd-master-0:/$ redis-cli -n 7 -a password
+
+
+redis-cli -h redis-pwd-master.common -p 6379 -n 4 -a password --scan --pattern "*" | xargs redis-cli -h redis-pwd-master.common -p 6379 -n 4 -a password DEL
+redis-cli -h redis-pwd1-master.common -p 6379 -n 1 -a password --scan --pattern "*" | xargs redis-cli -h redis-pwd1-master.common -p 6379 -n 1 -a password DEL
+
+
+redis-cli -h redis-pwd-master.common -a password info keyspace 
+
+
+https://dev-10-liber.gr8hr3.com/?path=/story/accordion-card--default
+https://liber.devstage.gr8hr3.com/?path=/story/accordion-card--default
+
+
+
+
+
+
+redis-pwd-master.common 
+
+
+
+
+redis-cli -h redis-14658.internal.c20115.ap-south-1-mz.ec2.cloud.rlrcp.com  -p 14658 -n 0 -a ********************* --scan --pattern "*" | xargs redis-cli -h redis-14658.internal.c20115.ap-south-1-mz.ec2.cloud.rlrcp.com -p 14658 -n 0 -a ************************** DEL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+redis-cli -h redis-12293.internal.c23233.asia-south1-mz.gcp.cloud.rlrcp.com -p 12293 -n 0 -a UcMfgtwzqZylilLtaus5FYRIPmpZbNvO --scan --pattern "*" | xargs redis-cli -h redis-12293.internal.c23233.asia-south1-mz.gcp.cloud.rlrcp.com -p 12293 -n 0 -a UcMfgtwzqZylilLtaus5FYRIPmpZbNvO DEL

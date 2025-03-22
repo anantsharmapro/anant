@@ -1,0 +1,43 @@
+root@hydra-stage-command-846cdc5fc6-nlkwj:/# hydra clients create --skip-tls-verify --id  nexora-stage  --grant-types authorization_code  --response-types code  --callbacks io.identityserver.kiosk:/oauthredirect --endpoint http://goth-stage-hydra:4445 
+OAuth 2.0 Client ID: nexora-stage
+OAuth 2.0 Client Secret: 602Vpe.Xl0RD_H6IRZ.GU~Tzqp
+root@hydra-stage-command-846cdc5fc6-nlkwj:/#
+
+
+encrypt cmd 
+
+echo -n "$(cat your-file.json)" | base64 -w 0
+
+
+echo -n 'ARo+UtCwRRpe1hmrAkegcM0XPV9r3WztC8+sahpN' | base64
+echo -n 'M09UekNhVjFSdk5WcnJYZ1Z1V01MOHFYSitWTExxU0NQKzlyV05YTQ==' | base64 --decode
+
+
+kubectl get secret pengi -n gtapi -o yaml
+
+
+PISA
+
+kubectl get pods -n common | grep elasticsearch
+kubectl get ing -n common | grep elasticsearch
+
+kubectl cp ./banks_es_load.json forms/pisa-pisa-web-86b8f4dff4-c2r8d:/code/
+kubectl cp ./ifsc_es_load.json forms/pisa-pisa-web-86b8f4dff4-c2r8d:/code/
+
+curl -X PUT "https://es-common.gr8hr3.com/ind-banks?pretty"
+curl -X PUT "https://es-common.gr8hr3.com/ind-branches?pretty"
+
+es-common.gr8hr3.com
+https://es-common.gr8hr3.com/_cat/indices?v
+
+kubectl get pods -n forms | grep pisa
+kubectl exec -it {pisa-pod} -n forms bash
+
+curl -XPOST "https://es-common.gr8hr3.com/ind-banks/_bulk" -H 'Content-Type: application/json' --data-binary @/code/banks_es_load.json
+
+curl -XPOST "https://es-common.gr8hr3.com/ind-banks/_bulk" -H 'Content-Type: application/json' --data-binary @/code/ifsc_es_load.json
+
+
+
+
+/home/ubuntu/github-runner/terraform/env/aws/akula-mumbai/yaml/greythr

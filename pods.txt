@@ -1,0 +1,16 @@
+Pods 
+
+GCP/ cougar - 10 web -> 15 web
+GCP/Adrem - 13 normal pod -> 16 pods
+indy6 cougar - 8 web -> 12 web
+
+GCP/latte - 6 -> 10
+AWS/latte - 6 -> 10
+
+
+
+
+
+
+
+drummer=> select * from walg_backup_list where cluster ilike '%penelope%' order by 1 desc; 

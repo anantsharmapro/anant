@@ -1,0 +1,139 @@
+argo  live stage 
+
+url - https://argocd.akula.gtkops.in/
+username - admin
+
+password - RT9TDNTuNjuxCXMy
+
+
+
+argo cloudstack
+
+url - https://argo.gr8hr3.com/
+username- admin
+password-  Greytip@123
+
+
+https://argocd-dora.gr8hr2.com/
+admin
+wLlg2JcP6J1PCN5B
+Xn2kXLMp1WOUjvfL
+cYRYBzzTVWVm4dWr
+
+
+
+
+
+Argocd scorpion
+ URL - http://34.100.246.120/
+ username - admin
+ pass - wCdDWEPpXbkU3hxY
+
+
+
+
+Stark-NGA
+Stark NGA 
+Url - https://argocd.stark.gtkops.in/
+Username - admin
+Pass - 9ZZSCwdH6FgypmIT
+
+Stark-ME
+Stark ME
+URL: https://argocd-me.stark.gtkops.in
+Pass - BOBZXzJJczYIbTwo
+
+
+This is shared account so dont change the password. after login in select greytip account to use pro features. I will delete this creds today so copy it and save it in a safe place.
+
+User Name - devops.gpt@greytip.com
+Password - jE5Zb*o#eMKn
+
+
+jprofiler
+
+172.20.99.64
+Administrator
+ug5tb5SU2N%2k6O$$MeMp3qlhHQv%nTXL
+
+
+
+
+
+
+ip 10.233.18.149
+
+
+livetest 
+url - livetest.greythr.com
+username - majordomo 
+pass       Masterdemo@12
+
+
+demourl 
+https://demo1658.greythr.com/ 
+username - Majordomo1
+pass- sa
+
+azure grafna 
+url : grafana.kalvari.gtkops.in
+user :  anant.sharma@greytip.com
+pws : &eKD7Hc33d
+
+
+
+decode admin passfor argocd 
+kubectl -n argocd get secrets argocd-initial-admin-secret -o json | jq .data.password -r | tr -d '\n'  | base64 -d
+
+livestage (AWS)
+ kubectl -n monitoring  get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+ 
+ 
+ 
+ argo version upgrade 
+ 
+ helm upgrade  --namespace argocd argocd -f values.yaml  argo/argo-cd --version 6.7.18
+ 
+ 
+ 
+
+ARgocd backup
+
+kubectl get applications.argoproj.io -n argocd -o yaml >  applications-backup.yaml
+kubectl get appprojects.argoproj.io -n argocd -o yaml > appprojects-backup.yaml
+kubectl get configmaps -n argocd -o yaml > argocd-configmaps-backup.yaml
+kubectl get secrets -n argocd -o yaml  > argocd-secrets-backup.yaml
+
+
+
+
+
+ 
+ 
+https://www.cloudthat.com/resources/blog/site-to-site-vpn-connection-between-aws-azure
+
+
+
+ARGOCD CLI
+
+argocd login argo.gr8hr2.com --username admin --password Greytip@123
+
+
+creating user :::
+
+kubectl -n argocd patch configmap argocd-cm --patch='{"data":{"accounts.test": "apikey,login"}}'
+
+updating pass for users  using argocd cli::::
+
+argocd account update-password --account test
+
+bydeafult new user have read only access
+kubectl -n argocd patch configmap argocd-rbac-cm --patch='{"data":{"policy.default": "role:readonly"}}'
+
+
+
+
+
+kubectl rollout restart deployment argocd-server -n argocd
+
+

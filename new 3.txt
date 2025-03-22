@@ -1,0 +1,3 @@
+https://greytip.atlassian.net/browse/PD-10631
+https://greytip.atlassian.net/wiki/spaces/TECHPLATFORM/pages/1325007784/Schema+Upgrade+Service
+https://drive.google.com/drive/u/0/folders/1KXs0UOfEZ2ANkM0Zys6mT-pURc--15ER

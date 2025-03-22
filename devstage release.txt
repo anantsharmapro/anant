@@ -1,0 +1,87 @@
+Dev stage releases
+
+cp -R * ../corehr/
+
+byobu reset= cmd -> tmux kill-session
+
+script execution
+step 1
+	    command to enter devstage database 
+        psql -h 	192.168.211.193 -p 6432 -U majordomo -d devstage
+        
+		cmd- psql -U majordomo -p 6432 -h postgresql devstage
+		cmd- psql -U majordomo -p 6432 -h psqldb10 gtqsg
+		cmd- psql -U majordomo -p 6432 -h psql.gtbot
+psql15	     psql -U majordomo -p 6432 -h 192.168.211.146  gtapi ,gtbot, payroll, gtpoi, gtfree, gttest , gtchat, gtqsg, gttask
+psql15		 psql -U majordomo -p 6432 -h 192.168.211.77   gtpay , gtflow, gtfeeds,gtleave ,att , gtevent , gtmobile , gtgrt , forms , corehr , nexora
+
+step- 2
+	command to enter in different schemas 
+		cmd - select * from tblaccountinfo;
+
+
+			
+set session authorization gt_demo_masterdemo1;
+set session authorization gt_founderphoenix_ysdrm_barakat;
+gt_founderphoenix_ysdrm_barakat1;
+psql15.devstage.gr8hr3.com = productdemo1;
+
+
+show idle_in_transaction_session_timeout ;
+
+gt_demo_masterdemoin
+
+importing to csv files 
+\copy (select * from qb_grid)  to '/home/ubuntu/qb_grid.csv' with csv header;
+
+
+
+
+long running query 
+select pid,usename,datname,age(now(),xact_start) as runtime,backend_start,xact_start,query from pg_stat_activity where state not ilike '%idle%' order by runtime desc;
+
+delete long running query 
+SELECT pg_terminate_backend(PID);
+
+		
+			
+			
+Schema upgrade cmd = java -jar -Denv=Production -Dlogback.configurationFile=logback.xml skriptay.jar app.properties
+
+to check =  select * from app_keyvalue where key ilike '%script.version%';
+
+ cp-script.sh
+ 
+ 
+ kubectl -n greythr get pods -l "app=pvc-container,release=cougar" | grep pvc-container | awk '{print $1}'
+ 
+ 
+ 
+ report copy 
+ kubectl -n devstage cp devstage-cougar-85bbcf66fb-hvxzn:/usr/local/tomcat/webapps/ROOT/WEB-INF/report.tgz ./report.tgz
+ 
+ 
+ report queue delete 
+ delete from queued_task where status not in('COMPLETED');
+ 
+ 
+ events check 
+ select cid,eventtype,createddate,processed,processeddate,exceptioncause  from application_event order by cid desc;
+ 
+ events delayed check 
+select count(*) from event_delayed;
+ 
+select * from application_event where eventtype ilike '%daily-event%' order by cid desc limit 3;
+ 
+
+ 
+ psql15 db 
+cmd -> psql -h psql15 -U majordomo -p 6432 db01
+
+
+Vault 
+env | grep VAULT
+
+
+http://opt/ansible-scripts/postgres-15/
+https://greytip.atlassian.net/wiki/spaces/DEV/pages/1138065558/Provision+New+DB+server+-+Terraform

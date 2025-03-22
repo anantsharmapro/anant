@@ -1,0 +1,250 @@
+replicaCount: 1
+image:
+#  tag: master-147
+  tag: master-158
+  touch-lag: "080"
+
+ingress:
+  enabled: false
+  hosts:
+   # - idp-alpha.greythr.com
+    - idp-stage.greythr.com
+  tls:
+  - hosts:
+  #  - idp-alpha.greythr.com
+    - idp-stage.greythr.com
+      # secretName: greythr-com-tls 
+    secretName: greythr-com-tls
+
+env:
+  java:
+    opts: ""
+    mem-opts: ""
+    xms: 1300M
+    xmx: 1300M
+  aws:
+    account-id: "511368387163"
+    access-key-id: AKIAIERAA45TRUD26OAA
+    region: ap-south-1
+    kms:
+      key-id: dfe09218-cbf1-4e67-b670-a1370d9d1aba
+    secrets:
+      name: prod/indy6/uas
+  coredb:
+    username: "ghruas"
+    url: "jdbc:postgresql://172.20.105.200:6432/coredb"
+  jdbc:
+    ssl:
+      enabled: false
+      mode: "verify-ca"
+      ca: "/gluster/gv0/root.crt"
+      key: "/gluster/gv0/client.pk8"
+      cert: "/gluster/gv0/client.crt"
+      password: "sslpwd"
+      secret: greythr-secrets
+  mailer:
+    server: "http://gtmailer-stage-mailer.greythr:8080/gtm/"
+  ignite:
+    namespace: ignite
+    service-name: ghr-ignite-apache-ignite
+    client-mode: "true"
+    session-cache:
+      replica-count: 1
+  goal:
+    api:
+      data:
+        cache-timeout: 1
+
+  hydra:
+    server:
+      public-url: https://goth-stage.greythr.com/
+      admin-url: http://goth-stage-hydra.hydra:4445
+    client:
+      name: greythr-staging
+    oauth2:
+      logout-url: oauth2/auth/sessions/login/revoke
+      redirect-url: https://idp-stage.greythr.com/uas/portal/auth/callback
+      app-subdomain: greythr.com
+      require-https: true
+  adrem:
+    url: "http://adrem-stage:9000"
+  ui:
+  #  host: "https://uas-ui.cdn.greytip.com"
+    host: "https://uas-ui3.cdn.greytip.com"
+    #host: "https://uas-ui.cdn.greythr.com"
+    #host: "https://uas-ui3.cdn.greytip.com"
+    #version: "/static-v6.3.0-prod-5"
+    #version: "/static-master-27"
+    version: "/static-master-30"
+#    version: "/static-Test-UAS-UI-PD-6727-1"
+  cougar:
+    url: "http://cougar-stage.greythr:8080/"
+  rialto:
+    server: http://real-rialto-web.rialto:8000
+    kms-key: dfe09218-cbf1-4e67-b670-a1370d9d1aba
+  rialtini:
+    server: "http://rialtini-rialtini.rialto:8080"
+  cache2k:
+    caches:
+      accounts:
+        expireAfterWrite: 600000
+        entryCapacity: 1000
+  mobile:
+    ui:
+      host: "https://gemini.cdn.greytip.com"
+#      version: "/static-v1.0-dev-24"
+      version: "/static-master-2"
+  redis:
+    default:
+      standalone:
+        host: "rialtini-oauth-v6-20220412.fjefpi.ng.0001.aps1.cache.amazonaws.com"
+        #host: "oauth-20210703.fjefpi.ng.0001.aps1.cache.amazonaws.com"
+      database: 1
+    session:
+      standalone:
+        host: "rialtini-oauth-v6-20220412.fjefpi.ng.0001.aps1.cache.amazonaws.com"
+        #host: "oauth-20210703.fjefpi.ng.0001.aps1.cache.amazonaws.com"
+        ttl: 1800
+        mobile:
+         ttl: 3888000
+        
+      database: 0
+  base-url: "https://%s"
+
+  kafka:
+    brokers: gt-kafka.common:9092
+    group-id: uas-stage
+    consumer:
+      cache-bust:
+        topic: gt-cache-buster-stage
+        concurrency: 1
+    topic:
+      user-login: uas-user-login-stage
+  netcore:
+    #username: "9035683072"
+    username: "9663851324"
+    feedid: "390221"
+    base-url:  "https://bulkpush.mytoday.com/BulkSms/SingleMsgApi"
+  sms:
+    default:
+      provider: netcore        
+
+  oauth:
+    config:
+      google:
+        client-id: "205021648157-e34uljsvrfvk786i4joa15utl4depcnr.apps.googleusercontent.com"
+        redirect-uri: https://idp-stage.greythr.com/uas/portal/auth/openid-callback
+      facebook:
+        client-id: "cc9c83cea6d87a10b0b52710739759c3"
+        redirect-uri: https://idp-stage.greythr.com/uas/portal/auth/openid-callback
+      linkedin:
+        client-id: "816t8bhsuwxdzc"
+        redirect-uri: https://idp-stage.greythr.com/uas/portal/auth/openid-callback
+#  saml:
+
+  tracer:
+    zipkin:
+      base-url: http://zipkin-svc.sok8s.gtkops.in:9411
+      service:
+        name: greythr-uas-indy-stage
+    sleuth:
+      sampler:
+        probability: "0.3"
+        rate: "200"
+
+  logging:
+    org.apache.ignite.logger.java.JavaLogger: WARN
+    com.greytip.uas: WARN
+    org.springframework: WARN 
+    org.springframework.web: WARN
+    org.springframework.security: WARN
+    com.greytip.uas: DEGUG
+
+extraEnv:
+  redis.squidex.ttl: "500"
+  #  spring.jpa.datasource.username: "majordomo"
+  #  spring.jpa.datasource.password: "sa"
+  spring.jpa.datasource.url: "jdbc:postgresql://172.20.105.200:6432/coredb"
+  app.mailer.url: "http://gtmailer-stage-mailer.greythr:8080/gtm/"
+  public.datasource.enabled: "true"
+
+persistentVolume:
+  existingClaim: ghr-efs-staging
+secretsEnv: {}
+extraEnv2: {}
+
+secretsName: greythr-uas
+
+security:
+  ignite:
+    role: ghr-ignite-apache-ignite
+
+resources:
+  requests:
+    cpu: 750m
+    memory: 1536Mi
+  limits:
+    cpu: 900m
+    memory: 1536Mi
+
+nodeSelector:
+  k8s.gtkops.in/role:
+  role: greythr
+  life-cycle: normal
+tolerations:
+  - key: "role"
+    value: "greythr"
+
+
+metrics:
+  enabled: true
+
+autoScaler:
+  targetCPUUtilizationPercentage: 70
+  maxReplicas: 10
+
+pdb:
+  minAvailable: 1
+
+spot:
+  enabled: false
+  replicaCount: 6
+
+  autoScaler:
+    targetCPUUtilizationPercentage: 70
+    maxReplicas: 25
+
+  pdb:
+    minAvailable: 1
+#hostAliases:
+#- ip: "15.206.227.108"
+#  hostnames:
+#  - "idp-stage.greythr.com"
+
+#hostAliases:
+#- ip: "10.162.26.89"
+#  hostnames:
+#  - "goth.greythr.com"
+
+
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 1
+      podAffinityTerm:
+        labelSelector:
+          matchLabels:
+            app: greythr-uas
+        topologyKey: kubernetes.io/hostname
+    - weight: 2
+      podAffinityTerm:
+        labelSelector:
+          matchLabels:
+            app: cougar
+        topologyKey: kubernetes.io/hostname
+    requiredDuringSchedulingIgnoredDuringExecution:
+    - labelSelector:
+        matchLabels:
+          app: greythr-uas
+      topologyKey: kubernetes.io/hostname
+

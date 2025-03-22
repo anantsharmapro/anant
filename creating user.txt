@@ -1,0 +1,80 @@
+
+
+
+devstage 
+  aws:
+    region: ap-south-1
+    account-id: "428078950050"
+    kms-id: 006ef468-6305-491e-8542-9410b4b7991e
+    access-key-id: AKIAWHK36M2RDMOXYLXS
+    secrets:
+      name: prod/charlie/eva
+  
+  
+  
+  
+  
+  
+ HYDRA_CLIENT_URL: http://hydra-hydra.gtevent:4444
+ 
+ 
+ s.s00aTLb7NPhu4TGgrTcTE3Tv
+ 
+ 
+netCorePassword: U2hhbnRoYW5hMUA=
+
+
+
+
+tunnel in between in aws and azure
+
+
+
+web auth token
+2faec4ae-7ea3-4877-b5b5-4076c547b81f
+
+
+awk -F: '{ print $1 }' /etc/passwd
+
+
+creating user
+
+- create ubuntu user 
+- add ssh key for server access 
+- chmod 600 authorized_keys
+- copy .aws (existing user's) dir to ~/.aws (new user) and change the ownership of the aws cred and configs 
+- add vault value in ~/.bashrc 
+- do 'source .bashrc' 
+- create k8s user, /opt/cloudstack-workloads/ansible-cloudstack/create-user.yaml [add the user name in the file and do 'sudo ansible-playbook create-user.yaml  -b -vvv'] 
+- create role for k8s namespace access, create-role.sh [./create-role.sh {namespace-name} [user-name]] 
+- change the ~/.kube/config file [context:name & current-context] [E2E: flam & Cloudstack: coco-admin] 
+
+
+
+sudo adduser {new-user} --disabled-password
+sudo usermod -aG sudo john
+
+/opt/cloudstack-workloads/ansible-cloudstack$ ./create-role.sh gtrecruit nitin
+sudo usermod -a -G gtrecruit nitin
+sudo setfacl -Rm g:gtbot:rwx /opt/cloudstack-workloads/terraform/gtbot/
+
+sudo setfacl -Rm g:gtapi:rwx /opt/dora-workloads/terraform/gtapi/
+
+
+sudo groupadd corehr
+
+
+
+sudo chown -R ubuntu:newgroup /path/to/directory
+
+
+
+
+
+
+1. security group created 
+2. entry in route53 tables
+3. ec2 instance t2 micro launched for testing the connectivity
+4. site to site vpn lanched 
+5. subnet is added
+6. 

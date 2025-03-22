@@ -1,0 +1,13 @@
+
+
+apt update && apt upgrade
+apt-get install curl
+
+
+
+
+
+
+
+secret key atlas
+AKIAWHK36M2RM73AN7YN

@@ -1,0 +1,47 @@
+SCaling pods  GCP
+
+List     kubectl get deploy -n greythr | grep cougar
+
+Cougar 
+cmd ->   kubectl edit deploy gt-cougar -n greythr
+
+cmd ->   kubectl scale deployment gt-cougar-spot -n greythr --replicas=10       -> scale up
+cmd ->   kubectl scale deployment gt-cougar-spot -n greythr --replicas=7       -> scale down  to normal
+  
+
+
+Adrem
+cmd ->   kubectl edit deploy gt-adrem  -n greythr
+
+cmd ->   kubectl scale deployment gt-adrem-spot -n greythr --replicas=18        -> scale up
+cmd ->   kubectl scale deployment gt-adrem -n greythr --replicas=13        -> scale down to normal
+
+
+
+Latte  
+cmd ->   kubectl edit deploy gt-latte  -n greythr
+
+cmd ->   kubectl scale deployment gt-latte -n greythr --replicas=10        -> scale up
+cmd ->   kubectl scale deployment gt-latte -n greythr --replicas=6         -> scale down to normal
+
+
+
+gke = gcloud container clusters get-credentials scorpion-k8s-workloads --region asia-south1 --project scorpion-k8s-workload
+
+
+
+
+checking pods as web= true/false 
+cmd :   kubectl get pods -l web=true -n greythr
+
+Marking pods label as web= true/false 
+cmd :  kubectl label pod  <pod name>  -n greythr web=true --overwrite 
+
+
+dump file save 
+cmd kubectl cp greythr/podname:/gluster/gv0/jira/java_pid1.hprof  /home/anant_sharma/java_pid1.hprof
+
+
+kubectl  rollout restart deploy/adrem -n greythr 
+
+deployment.apps/adrem restarted

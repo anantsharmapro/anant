@@ -1,0 +1,64 @@
+select * from event_type_kafka_topic;
+
+
+update event_type_kafka_topic set kafkatopic='payroll-leave' where kafkatopickey='event.kafka.leave.topic';
+update event_type_kafka_topic set kafkatopic='payroll-attendance-topic' where kafkatopickey='event.kafka.attendance.topic';
+update event_type_kafka_topic set kafkatopic='payroll-attendance' where cid = 82;
+update event_type_kafka_topic set kafkatopic='payroll-daily' where cid = 53;
+
+
+
+
+insert into app_event_handler (handlerkey, eventtype) values('on-event-notification-handler', 'attendance-shift-change');
+
+insert into event_type_kafka_topic(eventtype, kafkatopickey, kafkatopic) values ('attendance-shift-change','event.kafka.attendance.topic','gttask-attendance-topic');
+
+
+
+select * from event_type_kafka_topic where eventtype ilike '%batch%';
+
+
+
+select * from app_keyvalue where key ilike '%isNewDelayedHandler%';
+
+update app_keyvalue set value=true, modifiedtime=now() where key='isNewDelayedHandler';
+
+
+
+
+
+
+
+gttask-leave
+gttask-attendance
+gttask-attendance-topic
+gttask-daily
+
+attendance-event- devstage-attendance-topic 
+leave-event- devstage-leave 
+daily-event-devstage-daily
+route-topic-devstage-route
+
+
+att
+devstage
+gtfeeds
+forms
+gtapi
+gtbot
+gtchat
+gtfree
+gtpoi
+gttest
+
+gtpay
+gtflow
+gtleave
+gtevent
+gtmobile
+gtgrt
+corehr
+
+
+
+nexora

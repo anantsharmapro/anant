@@ -1,0 +1,4 @@
+oY^D4mu7@78$e96&&asPQY@bM
+
+
+helm upgrade --namespace gtchat bella-ess -f values.yaml greytip/bella --version 0.0.00-pd-2098-85

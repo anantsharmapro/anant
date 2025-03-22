@@ -1,0 +1,114 @@
+
+																			Grafana
+
+
+
+4 things we use to monitor specifically 
+Greytip database
+cougar
+adrem
+rialtini
+
+
+3 important things to monitor in greytip database.
+
+1. cpu Load
+2. Disk availability.
+3. query time(user).
+
+
+important things to monitor in greytip cougar
+1. missing pods
+2. Not ready pods
+3. busy threads
+
+under tomacat we can able to see the pods names, busy threads, and missing pods
+
+
+we have two clusters tango and stark
+
+we went for cougar 
+we have two region here ME and NGA.
+ 
+ 
+next service will be Adrem.
+
+in adrem total response time should be checked not to be exceed 1 second 
+it should be in milli seconds
+
+4th service is greytip UAS
+we check for the introspection and response time important.
+
+same for stark and tango
+
+
+rialtini is the service as well.
+
+response time should be in milli seconds 
+
+
+
+
+
+
+
+																				Kafka manager
+
+
+
+we have to monitor 
+under Clusters/kafka3/Consumers/event-consumer/application-events
+
+
+we have to carefully monitor the reports generator.  total lag has to be 0
+
+for every kafka 100% partition should be there
+
+
+Report engine 3
+```
+kafka3/Consumers/report-processor-3/report-engine-3
+
+
+
+
+
+
+																				Squadcast 
+																				
+																				
+Squadcast is a type of alerting tool that we are using to give warning and critical alerts if someone didn't notice.
+
+There are 4 type of alerts
+1. Email
+2. Push
+3. SMS
+4. Phone call
+
+These 4 alerts works in specific order for notifications.
+  
+
+
+
+																				Kibana
+																				
+We use kibana for checking the logs and monitoring them.
+
+things we can check in kibana are:-
+Access log
+adrem 
+bella
+cougar
+dabang
+hydra
+pengo etc
+
+
+
+
+
+
+
+
+
+Anything left than please let me know , i will take KT from Madhan.

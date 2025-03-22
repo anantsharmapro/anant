@@ -1,0 +1,20 @@
+jira ticekt id
+
+
+Anant= 6371e42d489de2f7f461272d
+
+Abhishek = 63fdf8424d5e4b44e2315317
+
+Amit= 5ea91ed0ddd45f0b94f96175
+
+arun= 557058:62348089-9150-44f7-a408-d49e3045ce5d
+
+hemanth= 557058:c0f20105-4633-4e70-b1f2-748cdb58d147
+
+madhan= 60583a042ce4be0071ca2249
+
+sandya= 6200c9a9e5caff0070e17769
+
+vishnu= 61ea7675eb1fb60071c9f591
+
+Suma= 557058:18a354b4-8f6e-44ee-8be1-fa98fdbfb2f7

@@ -1,0 +1,5 @@
+gcloud config set project  
+
+scorpion = gcloud container clusters get-credentials scorpion-k8s-workloads --region asia-south1 --project scorpion-k8s-workloads
+
+stark= gcloud container clusters get-credentials stark --region me-central2 --project stark-me

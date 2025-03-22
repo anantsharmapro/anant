@@ -1,0 +1,17 @@
+project = "DevOps Project"  and (assignee = 5ea91ed0ddd45f0b94f96175 OR (comment ~ 5ea91ed0ddd45f0b94f96175 AND assignee !=5ea91ed0ddd45f0b94f96175 )) AND resolved >= startOfDay(-30) AND resolved <= endOfDay(-1) ORDER BY created DESC
+
+
+
+
+
+
+
+anant 
+(project = "DevOps Project" OR project = "Release Train") and (assignee = 6371e42d489de2f7f461272d OR (comment ~ 6371e42d489de2f7f461272d AND assignee !=6371e42d489de2f7f461272d )) AND resolved >= startOfDay(-30) AND resolved <= endOfDay(-1) ORDER BY created DESC
+final 
+(project = "DevOps Project" OR project = "Release Train") and (assignee = 6371e42d489de2f7f461272d OR comment ~ "accountId = 6371e42d489de2f7f461272d" AND (reporter != 6371e42d489de2f7f461272d AND assignee != 6371e42d489de2f7f461272d))AND resolutiondate >= -30d ORDER BY resolutiondate DESC
+
+
+
+madhan
+(project = "DevOps Project" OR project = "Release Train") and (assignee = 60583a042ce4be0071ca2249 OR (comment ~ 60583a042ce4be0071ca2249 AND assignee !=60583a042ce4be0071ca2249 )) AND resolved >= startOfDay(-30) AND resolved <= endOfDay(-1) ORDER BY created DESC

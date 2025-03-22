@@ -1,0 +1,14 @@
+commands :
+
+kubectl config get-context
+
+if we have to use any contexts the cmd is : kubectl config use-context (copy name now)
+
+
+to copy scripts in each clusters cmds will be
+cd update-scripts/
+remove old scripts starting with cg cmd will be - rm 
+to check how many clients got updated cmd will be cat (log.......).log | grep updated | wc -l
+to check the queue in logs  cat (log.......).log | grep queing	 | wc -l
+
+to check services kubectl get pods -n greythr-w | grep adrem.

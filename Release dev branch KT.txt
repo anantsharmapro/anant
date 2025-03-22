@@ -1,0 +1,112 @@
+Look after Release dev branch ticket category 
+
+RT board is also integrated with google space
+
+types of releases
+1. Cougar release 
+2. adrem release  
+3. Whistler release
+4. dabang 
+5. Linckia
+6. cafe
+7. Dak
+ETC
+
+look for script changes or comments  after opening the ticket
+ 
+ 
+Look for Dev release branch in the tickets
+
+if there are tickets in release branch do it first. than release dev branch.
+
+ 
+We have to change the tags of these services
+1. Whistler
+2. adrem
+3. linckia- in linckia we have to build 2 times for admin and ESS seperately.
+
+some configuration notes will be there . but still look for all the changes and comments.
+Mostly Cougar have scripts change and report changes 
+
+if cougar script is there give priority to cougar.
+
+
+Steps for deployments in release dev branch in jenkins.
+
+1. Login in jenkins
+2. find the services and the release branch(We can also search from search bar).
+3. First check if there is any previous build are going on in that particular service.
+4. Click on build with parameters.
+5. click on build and it get started.
+6. We can build the other services in parallel as well.
+7. wait for the build to complete.(waiting period 5- 10 mins)
+8. Find the new tag after build finish.
+9. take a note of all the tags of the services. 
+10. for linckia tag should be like static-admin- **** and static-ess-*****
+
+
+
+
+for Deployments in jumpbox . 
+
+1. Login to cloudstack jumpbox with the ip address 192.168.210.102
+2. use credentials.
+3. path is cd /opt/cloudstack-workloads/terraform/
+4. Do ls -lh to list all the namespaces.
+5. edit the file vi version-info.auto.tfvars
+6. linckia is combined with adrem 
+7. update the updated tags got from jenkins build.
+8. always update the touch flag by 1 value.
+9. save the file
+10. use cmd terraform apply it will restart the pods
+
+
+
+
+
+
+For script execution and reports copy in cougar.  
+
+1.path in jumpbox /opt/cloudstack-workloads/terraform/devstage.
+2. check for pods status kubectl get pods -n devstage | grep cougar.
+3. go to cd update-scripts/ and check if already script is present or not. 
+4. ls -lh
+5. remove the old script by rm (script name)
+6. make a new script vi (script name). & save
+7. check for the update in the cd services/update/      do ls -lh
+8. go back to namespace folder cd ../../../             do ls -lh   
+9. locate the folder cp-script.sh  copy the script in the folder , use cmd   sh cp-script.sh
+10.  copy the script in url " masterdemo1.devstage.gr8hr3.com".
+11. login there and remove home.do in web address  and paste system/updateSystemSchema.ftl
+12. check pods after execution  kubectl get pods -n devstage | grep cougar.
+13. get inside pod kubectl exec -it (pod name) -n devstage bash 
+14. cd /gluster/gv0/cougar/update-scripts/
+15. do ls -lh 
+16. check the latest log and cat (log name)              check for updation complete message
+17. update the tags from jenkins build and update touch flag 
+18. cafe tag is in adrem.
+
+
+For reports copy 
+19. go to reports folder cd report-generator-2/
+20. do ls-lh
+21. delete the report.tgz file using     rm report.tgz
+22. delete report backup file too using  rm -r report-bkp
+23. move report file to backup file  mv report report-bkp
+24. ls -lh
+25. do kubectl get pods -n devstage | grep cougar
+26. do kubectl exec -it (pod name) -n devstage bash
+27. go to directory cd webapps/ROOT/WEB-INF/    and do ls-lh
+28. now tar the report file tar zcvf report.tgz ./report     and type exit after process
+29. check pod kubectl get pods -n devstage | grep cougar
+30. use cmd to copy report from pod-   kubectl -n devstage cp (podname):/usr/local/tomcat/webapps/ROOT/WEB-INF/report.tgz ./report.tgz
+31. check ls -lh
+32. unzip the file-   tar zxvf report.tgz    and check ls -lh
+32. run this cmd   sh cp-reports.sh
+33. after copy go back to devstage folder
+34. go to vi version-info.auto.tfvars
+35. increase the report touch flag
+36. save and close the file 
+37. do terraform apply 
+38. apply yes   , it will take 5-10 minutes.
+39. check pods kubectl get pods -n devstage | grep (cougar or adrem or reports etc)

@@ -1,0 +1,31 @@
+if (($NS_FOUND == 0)); then
+  echo "Creating role for namspace $NAMESPACE"
+  sed -e "s/NAMESPACE/att/g" role-devops.yaml | kubectl create -n att -f -
+fi
+
+/
+
+https://www.overleaf.com/latex/templates/deedy-cv/bjryvfsjdyxz
+
+
+
+
+This is shared account so dont change the password. after login in select greytip account to use pro features. I will delete this creds today so copy it and save it in a safe place.
+
+User Name - devops.gpt@greytip.com
+Password - jE5Zb*o#eMKn
+
+
+jprofiler
+
+172.20.99.64
+Administrator
+ug5tb5SU2N%2k6O$$MeMp3qlhHQv%nTXL
+
+
+
+
+
+
+
+gaol redis =IwYyuDizavGx9xpLRZ7PQeOrGrxQF1tD

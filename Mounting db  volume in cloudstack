@@ -1,0 +1,69 @@
+step 1: after launching db  we have to mount vvolume 
+
+
+root@goal:/home/ubuntu# apt install xfsprogs
+
+
+
+root@goal:/home/ubuntu# mkfs.xfs /dev/vdb
+
+root@goal:/home/ubuntu# xfs_info /dev/vdb
+
+
+root@goal:/home/ubuntu#  mkdir /vol
+
+root@goal:/home/ubuntu#  mount /dev/vdb /vol
+
+root@goal:/home/ubuntu# vi /etc/fstab
+
+
+/dev/vdb /vol  xfs     defaults,discard        0 0
+
+
+
+root@goal:/home/ubuntu#  mount -a
+
+hemanth@dora-jumpbox:/opt/db-setup/pgbouncer$ ansible-playbook -i hosts psql.yaml
+
+hemanth@dora-jumpbox:/opt/db-setup/pgbouncer$ ansible-playbook -i hosts pgbouncer.yaml 
+
+
+
+postgres@goal:/tmp$ psql template1 < template1.sql
+
+
+postgres=#  
+create role majordomo login password 'sa' superuser inherit createdb createrole replication;
+create role admin  login password 'sa' superuser inherit createdb createrole replication;
+create role rialto  login password 'sa' superuser inherit createdb createrole replication;
+
+
+
+
+postgres@goal:/tmp$ vi /etc/postgresql/15/main/postgresql.conf      -   for max connection
+
+
+/etc/pgbouncer/pgbouncer-ini.sh
+/etc/pgbouncer/create_userlist.sh
+
+root@postgres2:/home/hemanth# /etc/init.d/postgresql restart
+root@postgres2:/home/hemanth# /etc/init.d/pgbouncer restart
+
+
+
+
+postgres@goal:/home/anant$ netstat -tnlp
+
+
+
+
+root@goal:/home/anant# vi /lib/systemd/system/pgbouncer.service
+
+
+root@goal:/home/anant# systemctl daemon-reload
+
+
+
+
+
+ALTER SCHEMA admin OWNER TO admin;

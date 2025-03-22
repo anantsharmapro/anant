@@ -1,0 +1,18 @@
+Kyle deployments
+
+/opt/cloudstack-workloads/k8s-workloads/kyle_cs
+
+helm upgrade --namespace kyle kylecs greytip/kyle --version 0.0.00-pd-4930-4
+
+from this path run helm upgrade command
+
+
+
+
+
+
+
+
+
+
+kyle db cmd -> psql -p 6432 -U majordomo -h 10.0.0.253 kylecs

@@ -1,0 +1,28 @@
+@all Below releases are deployed in Live
+........................................
+Enhancement :- 
+1.
+2.
+3.
+4.
+
+
+Issues fixed :-
+1.
+2.
+3.
+4.
+
+
+Loggers :-
+1.
+2.
+3.
+4.
+
+
+Defects:- 
+1.
+2.
+3.
+4.

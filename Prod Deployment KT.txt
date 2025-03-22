@@ -1,0 +1,83 @@
+3 branches for devops in RT board - 1. Release Dev Branch   2. Release   3.Prod Deploy.
+
+Cougar Release generally  we get scripts and reports execution with files attached to it.
+                    
+Clusters:
+1. India(indy6)  - greytHR -AWS
+2. ME - greythr -AWS
+3. NGA - nga - AWS
+4. Scorpian(freemium) - Greythr - GCP
+5. Mermaid (hr.greytip.com)- greythr - GCP
+
+
+Servers: 
+1.India (mumadm)(AWS)   1 cluster is there GreytHR 
+2.FF (ffadmin)(AWS)     2 clusters are in ffadmin - nga & ME
+3.GCP              2 clusters Scorpian and mermaid
+
+
+
+India    : updatedb.greythr.com
+NGA      : http://ngamasterdemo.greythr.com/
+ME       : https://masterdemo.me0.greythr.com/home.do
+Scorpian : https://livetestcoral.greythr.com/
+Mermaid  : https://livetest.mermaid.gtkops.in/
+
+
+/system/updateSystemSchema.ftl
+
+
+
+we use contexts in GCP  no Namespaces. 
+
+ in GCP just click upload and select file and scripts will be uploaded
+ 
+ Cp-scripts.sh is the folder where services and scripts are stored
+ 
+ We can't deploy in 2 GCP servers because of same server so we will do one by one
+ 
+ we will use SPINNAKER for GCP deployments.
+ 
+ steps for deployment - caugar :-
+ 1. copy the scripts in each cluster
+ 2. execute the script in each cluster by cmd sh cp-scripts.sh
+ 3. login pods by cmd  kubectl get pods -n greythr -w | grep cougar
+ 4. login in regular pod to see the copied contents. cmd will be kubectl -n greythr exec -it (name of pod) bash
+ 5. Login in each 4 urls
+ 6. copy and paste /system/updateSystemSchema.ftl in each url after .com 
+ 7. go to the terminals and check the logs in pods. untill message (Database updation completed).
+ 8. use cmd ls -lh in cougar update the tags in nano values.yaml.
+ 9. use helmupgrade.sh to apply the changes. 
+10. list out pods using kubectl get pods -n greythr -w | grep cougar ...... older one terminates and new one starts here.
+11. check the running pods if it is in 1/2 stage wait for 8 mins , otherwise kill that pod.
+12. check server names(ffadmin) and folder path(/opt/k8s/stark-workloads/k8s/greytHR/cougar).
+13. check server names(mumadm) and folder path (srv/app_k8s/tango-workloads/k8s/greytHR/cougar).
+14. update the tags for mermaid and scorpian in gitlab. 
+15. Search cougar there ( greythr-cougar.yaml) 
+
+Linckia release in GCP:- 
+1. update the tags for mermaid and scorpian in gitlab.
+2. update the tags in adrem file (greythr-adrem.yaml)
+3. Search search secret for adrem services tag & ui for Linckia tags 
+4. review the changes
+5. create merge request. assign arun.
+6. after approval mail hit start Manual execution.
+
+Whistler release GCP:-
+1. update the tags for mermaid and scorpian in gitlab.
+2. update the tags in whistler file (greythr-whistler.yaml)
+3. update master tag and commit.
+4. review the changes
+5. create merge request. assign arun.
+6. after approval mail hit start Manual execution.
+
+
+Linckia release in AWS:- 
+1.update the tags in mumadm and ffadmin 
+2. cd ../adrem/
+3. go to values file nano values.yaml
+4. search for ui.
+5. change the tag 
+6. helmupgrade.sh
+
+

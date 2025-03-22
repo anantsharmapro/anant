@@ -1,0 +1,24 @@
+helm pull --untar  oci://registry-1.docker.io/bitnamicharts/kafka  --version 21.4.4
+
+helm install gt-etcd bitnami/etcd --version 8.12.0 --namespace testing -f path/to/custom-values.yaml
+
+
+
+akula etcd testing
+
+helm install --namespace testing gt-etcd -f gt-etcd-test.yaml bitnami/etcd --version 8.12.0
+
+
+
+helm install --namespace testing gt-etcd -f gt-etcd-test.yaml oci://registry-1.docker.io/bitnamicharts/etcd --version 8.12.0
+
+
+
+cloudstack
+
+helm install --namespace testing etcd-testing -f etcd-testing.yaml  bitnami/etcd  --version 8.2.4
+
+E6V7KvK4Hk
+
+
+bitnami/mongodb --version 11.1.0

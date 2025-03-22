@@ -1,0 +1,48 @@
+Step 1 :  List the cougar pods in devstage
+			cmd:- kubectl get pods -n devstage |grep cougar 
+			
+step 2:   Login to the pods	
+			cmd:- kubectl exec -it (pod name) -n devstage bash
+			
+step 3:   Navigate to report directory 
+			cmd:- cd webapps/ROOT/WEB-INF/
+			
+step 4:   Create zip file of the report directory
+			cmd:- tar zcvf report.tgz ./report
+			
+step 5:   exit from the pod
+			cmd:- ctrl + d or type “exit”
+			
+step 6:   Navigate to the directory called Report generator 
+			      cd /opt/k8s/k8s-workloads/<namespace>/report-generator-2
+			cmd:-  cd /opt/k8s/k8s-workloads/devstage/report-generator-2           and do ls -lh
+			
+step 7:   Delete the existing report.tgz and backup of the report directory
+			cmd:-  rm report.tgz
+			cmd:-  rm -r report-bkp
+			
+			Rename the ‘report’ directory to ‘report-bkp’ to create a backup
+			
+			cmd:-   mv report report-bkp
+			
+step 8:   To copy the zipped report folder from the pod to new report engine,
+		  first we will copy it to the respective namespace’s report-generator-2 directory.
+			cmd:-  kubectl -n {namespace} cp <pod_name>:/usr/local/tomcat/webapps/ROOT/WEB-INF/report.tgz ./report.tgz
+			
+			example- kubectl -n devstage cp cougar-gtapi-bf4d7c986-mpv7w:/usr/local/tomcat/webapps/ROOT/WEB-INF/report.tgz ./report.tgz
+			do ls -lh to check 
+
+
+step 9:	  Now since we successfully copied the compressed report file into the respective namespace. Now we are going to untar(unzip) it 
+          and start the final step to copy the report folder to new report engine. To untar the tar file which we just copied:
+			cmd:- tar zxvf report.tgz
+			
+			
+step 10:  Then finally we are going to copy the report directory to new report engine 
+		  by running the script present in same directory named “cp-reports.sh”.
+		  
+		  cmd:-  ./cp-reports.sh
+		  
+		  
+step 11:  navigate to version-info file in devstage directory and change touch flag of report_version and do terraform apply.
+step 11:  navigate to version-info file in devstage directory and change touch flag of report_version and do terraform apply.

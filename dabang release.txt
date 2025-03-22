@@ -1,0 +1,26 @@
+dabang relese
+ 
+helm upgrade --namespace devstage dabang -f values.yaml greytip/dabang --version 0.1.8
+
+helm install --namespace devstage dabang -f values.yaml greytip/dabang --version 0.1.8
+
+helm repo update
+
+helm uninstall -n devstage dabang.
+
+
+ETCD GCP 
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+ helm uninstall -n devstage cougar
+ terraform apply -target module.ghrapp.helm_release.cougar[0]
+ 
+  helm list -n devstage
+ 
+  helm upgrade --namespace gtchat bellaciao-admin -f values.yaml greytip/bellaciao-admin --version 0.0.00-pd-2098-85
+  helm install --namespace devstage dabang -f values.yaml greytip/dabang --version 0.1.8
+ 
+ 
+ /opt/cloudstack-workloads/terraform/modules/tf-ghr-app/helm_values - config files
+ 
+ 
