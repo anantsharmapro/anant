@@ -1,0 +1,358 @@
+
+
+
+
+
+
+
+
+update event_type_kafka_topic set kafkatopic='gtevent-leave' where kafkatopickey='event.kafka.leave.topic';
+update event_type_kafka_topic set kafkatopic='gtevent-dak-event' where kafkatopickey='event.kafka.dak.topic';
+update event_type_kafka_topic set kafkatopic='gtevent-gteventendance-topic' where kafkatopickey='event.kafka.gteventendance.topic';
+update event_type_kafka_topic set kafkatopic='gtevent-gteventendance' where cid = 82;
+update event_type_kafka_topic set kafkatopic='gtevent-daily' where cid = 53;
+
+
+
+
+cp -R * ../corehr/
+
+sed -i 's/corehr/forms/g' corehr-cougar-pvc-cnt.yaml
+
+
+
+
+psql forms < /tmp/gtevent-public.sql
+
+
+
+
+
+
+INSERT INTO tblserverinfo (ipaddress,connectionurl,publicconnectionurl,dbname,dbusername,dbpassword,dbcode,port,cluster,enableprovisioning,active) VALUES ('192.168.221.132','jdbc:postgresql://psql.gtevent:6432/gtevent','jdbc:postgresql://192.168.221.132:6432/gtevent','gtevent','majordomo','sa','gtevent',6432,'dora',0,1);
+
+
+
+INSERT INTO tblaccountinfo (domainname, accountid, schemaname, schemausername, schemapassword, user_schema, enabled, accessid, accesskey, dbserver, nonpaymentdisbleon, plan, database_id, deleteschema, timezone, isundermaintenance ) values ('masterdemo2.gtevent.gr8hr2.com', 0, 'gt_demo_masterdemo2', 'gt_demo_masterdemo2', 'sa', 1, 1, gen_random_uuid(), gen_random_uuid(), 'gtevent', null, '', '30', 0, 'Asia/Kolkata', 0);
+
+
+
+
+INSERT INTO tblaccountinfo (domainname, accountid, schemaname, schemausername, schemapassword, user_schema, enabled, accessid, accesskey, dbserver, nonpaymentdisbleon, plan, database_id, deleteschema, timezone, isundermaintenance ) values ('freemium.gtevent.gr8hr2.com', 0, 'gt_demo_masterdemo2', 'gt_demo_masterdemo2', 'sa', 1, 1, gen_random_uuid(), gen_random_uuid(), 'gtevent', null, '', '30', 0, 'Asia/Kolkata', 0);
+
+
+
+
+update app_properties set propertyvalue=replace(propertyvalue,'gtevent','forms');
+
+
+update app_properties set propertyvalue= 'single://redis-gtevent-master.gtevent:6379/4' where cid =738;
+update app_properties set propertyvalue= 'single://redis-gtevent-master.gtevent:6379/4' where cid =939;
+
+
+
+
+
+curl -X POST https://rialto.gtevent.gr8hr2.com/v1/zone/encrypt-passwords/ -H "Content-Type: Content-Type" -H "Authorization: Token 077d1f93913e9ee1cf88ad3560d65284a2cfdac9" --insecure
+
+curl --location 'http://elasticsearch-upgrade.common:9200/adrem_ess_user/_mapping?pretty=null'
+-------------------------------------------
+
+DB changes 
+
+select cid,propertykey,propertyvalue from app_properties where propertyvalue ilike '%devstage%';
+
+update app_properties set propertyvalue=replace(propertyvalue,'devstage','gtevent');
+
+update app_properties set propertyvalue=replace(propertyvalue,'gr8hr3','gr8hr2');
+
+
+redis- changes 
+
+select cid,propertykey,propertyvalue from app_properties where propertykey ilike '%redis%';
+
+update app_properties set propertyvalue= 'single://redis-gtevent-master.gtevent:6379/4' where cid =738;
+update app_properties set propertyvalue= 'single://redis-gtevent-master.gtevent:6379/4' where cid =939;
+update app_properties set propertyvalue= null where cid =887;
+update app_properties set propertyvalue= null where cid =940;
+update app_properties set propertyvalue='false' where cid =886;
+
+
+
+
+HYDRA changes 
+
+update app_properties set propertyvalue='http://gtevent-hydra-hydra.gtevent:4445' where cid =815;
+
+
+kafka changes 
+
+update app_properties set propertyvalue='gt-kafka6.common:9092' where cid =836;
+update app_properties set propertyvalue='gt-kafka6.common:9092' where cid =733;
+update app_properties set propertyvalue='gt-kafka6.common:9092' where cid =792;
+update app_properties set propertyvalue='gt-kafka6-zookeeper.common:2181' where cid =793;
+update app_properties set propertyvalue='gt-kafka6-zookeeper.common:2181' where cid =734;
+
+
+
+zookeeper-changes 
+
+update app_properties set propertyvalue='zookeeper3.common:2181' where cid =732;
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+$DATABASE_URL
+
+hydra migrate sql postgres://hydra:sa@psql.gtevent:6432/hydra_gtevent?sslmode=disable
+
+hydra clients create --skip-tls-verify --id dora-gtevent --grant-types authorization_code refresh_token client_credentials implicit --response-types token code id_token  --callbacks https://idp.gtevent.gr8hr2.com/uas/portal/auth/callback --endpoint http://gtevent-hydra-hydra:4445 --secret ae41227f-04a9-46aa-b03b-2d8d979890eb
+
+update hydra_client set grant_types = 'authorization_code|refresh_token|client_credentials|implicit' where id = 'dora-gtevent';  
+update hydra_client set response_types = 'id_token token' where id = 'dora-gtevent';  
+update hydra_client set scope = 'openid offline' where id = 'dora-gtevent'; 
+
+
+
+
+
+HYDRA token for gtevent 
+
+
+hydra clients create --skip-tls-verify --id  gtevent  --grant-types authorization_code  --response-types code  --callbacks io.identityserver.kiosk:/oauthredirect --endpoint http://gtevent-hydra-hydra.gtevent:4445 
+
+
+
+update hydra_client set redirect_uris='https://nexora.gtevent.gr8hr2.com/nex/admin/callback', scope='offline_access offline openid email',grant_types = 'authorization_code|refresh_token',response_types='code',token_endpoint_auth_method='client_secret_post' where id ='gtevent';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cp -R * ../corehr/
+
+
+
+_____________________________________________________________________________________________________________________
+
+
+
+
+CREATE TABLE application_event_202501
+PARTITION OF application_event FOR VALUES FROM ('2025-01-01') TO ('2025-02-01');
+CREATE TABLE application_event_202502
+PARTITION OF application_event FOR VALUES FROM ('2025-02-01') TO ('2025-03-01');
+CREATE TABLE application_event_202503 
+PARTITION OF application_event FOR VALUES FROM ('2025-03-01') TO ('2025-04-01');
+CREATE TABLE application_event_202504 
+PARTITION OF application_event FOR VALUES FROM ('2025-04-01') TO ('2025-05-01');
+CREATE TABLE application_event_202505 
+PARTITION OF application_event FOR VALUES FROM ('2025-05-01') TO ('2025-06-01');
+CREATE TABLE application_event_202506 
+PARTITION OF application_event FOR VALUES FROM ('2025-06-01') TO ('2025-07-01');
+CREATE TABLE application_event_202507 
+PARTITION OF application_event FOR VALUES FROM ('2025-07-01') TO ('2025-08-01');
+CREATE TABLE application_event_202508 
+PARTITION OF application_event FOR VALUES FROM ('2025-08-01') TO ('2025-09-01');
+CREATE TABLE application_event_202509 
+PARTITION OF application_event FOR VALUES FROM ('2025-09-01') TO ('2025-10-01');
+CREATE TABLE application_event_202510 
+PARTITION OF application_event FOR VALUES FROM ('2025-10-01') TO ('2025-11-01');
+CREATE TABLE application_event_202511 
+PARTITION OF application_event FOR VALUES FROM ('2025-11-01') TO ('2025-12-01');
+CREATE TABLE application_event_202512 
+PARTITION OF application_event FOR VALUES FROM ('2025-12-01') TO ('2026-01-01');
+CREATE TABLE application_event_202601
+PARTITION OF application_event FOR VALUES FROM ('2026-01-01') TO ('2026-02-01');
+
+
+CREATE TABLE application_event_status_202501
+PARTITION OF application_event_status FOR VALUES FROM ('2025-01-01') TO ('2025-02-01');
+CREATE TABLE application_event_status_202502
+PARTITION OF application_event_status FOR VALUES FROM ('2025-02-01') TO ('2025-03-01');
+CREATE TABLE application_event_status_202503 
+PARTITION OF application_event_status FOR VALUES FROM ('2025-03-01') TO ('2025-04-01');
+CREATE TABLE application_event_status_202504 
+PARTITION OF application_event_status FOR VALUES FROM ('2025-04-01') TO ('2025-05-01');
+CREATE TABLE application_event_status_202505 
+PARTITION OF application_event_status FOR VALUES FROM ('2025-05-01') TO ('2025-06-01');
+CREATE TABLE application_event_status_202506 
+PARTITION OF application_event_status FOR VALUES FROM ('2025-06-01') TO ('2025-07-01');
+CREATE TABLE application_event_status_202507 
+PARTITION OF application_event_status FOR VALUES FROM ('2025-07-01') TO ('2025-08-01');
+CREATE TABLE application_event_status_202508 
+PARTITION OF application_event_status FOR VALUES FROM ('2025-08-01') TO ('2025-09-01');
+CREATE TABLE application_event_status_202509 
+PARTITION OF application_event_status FOR VALUES FROM ('2025-09-01') TO ('2025-10-01');
+CREATE TABLE application_event_status_202510 
+PARTITION OF application_event_status FOR VALUES FROM ('2025-10-01') TO ('2025-11-01');
+CREATE TABLE application_event_status_202511 
+PARTITION OF application_event_status FOR VALUES FROM ('2025-11-01') TO ('2025-12-01');
+CREATE TABLE application_event_status_202512 
+PARTITION OF application_event_status FOR VALUES FROM ('2025-12-01') TO ('2026-01-01');
+CREATE TABLE application_event_status_202601
+PARTITION OF application_event_status FOR VALUES FROM ('2026-01-01') TO ('2026-02-01');
+
+
+create index application_event_status_202501_appname_idx on application_event_status_202501 (appname);
+create index application_event_status_202502_appname_idx on application_event_status_202502 (appname);
+create index application_event_status_202503_appname_idx on application_event_status_202503 (appname);
+create index application_event_status_202504_appname_idx on application_event_status_202504 (appname);
+create index application_event_status_202505_appname_idx on application_event_status_202505 (appname);
+create index application_event_status_202506_appname_idx on application_event_status_202506 (appname);
+create index application_event_status_202507_appname_idx on application_event_status_202507 (appname);
+create index application_event_status_202508_appname_idx on application_event_status_202508 (appname);
+create index application_event_status_202509_appname_idx on application_event_status_202509 (appname);
+create index application_event_status_202510_appname_idx on application_event_status_202510 (appname);
+create index application_event_status_202511_appname_idx on application_event_status_202511 (appname);
+create index application_event_status_202512_appname_idx on application_event_status_202512 (appname);
+
+create index application_event_status_202501_eventid_idx on application_event_status_202501 (eventId);
+create index application_event_status_202502_eventid_idx on application_event_status_202502 (eventId);
+create index application_event_status_202503_eventid_idx on application_event_status_202503 (eventId);
+create index application_event_status_202504_eventid_idx on application_event_status_202504 (eventId);
+create index application_event_status_202505_eventid_idx on application_event_status_202505 (eventId);
+create index application_event_status_202506_eventid_idx on application_event_status_202506 (eventId);
+create index application_event_status_202507_eventid_idx on application_event_status_202507 (eventId);
+create index application_event_status_202508_eventid_idx on application_event_status_202508 (eventId);
+create index application_event_status_202509_eventid_idx on application_event_status_202509 (eventId);
+create index application_event_status_202510_eventid_idx on application_event_status_202510 (eventId);
+create index application_event_status_202511_eventid_idx on application_event_status_202511 (eventId);
+create index application_event_status_202512_eventid_idx on application_event_status_202512 (eventId);
+
+
+--------------------------------------------------------
+
+reset pass
+
+update tblemployee set password='4ZELI89Fck6vFgQpHLUCN2+8aYPSVfnVt9eF7/dTw21YnxnDESqqFCO4vKPD9SUXHqoXjGglt5TmCLkYMmZa5g==',passwordversion=null ;
+update fk_tbluser set password='4ZELI89Fck6vFgQpHLUCN2+8aYPSVfnVt9eF7/dTw21YnxnDESqqFCO4vKPD9SUXHqoXjGglt5TmCLkYMmZa5g==',passwordversion=null  ;
+update fk_tblrole set lastupdatedon=now();
+
+update fk_tbluser set email = null;
+update tblEmployee set email = null;
+update tblEmployee set mobile = null;
+truncate table tbldevicereg cascade;
+update tblappoptions set optvalue=null where optkey in('contactEmail', 'systemEmail');
+update emailalias set mailid=null;
+
+
+
+
+
+
+--------------------------------------------------------
+
+
+route53 entries 
+ssl cert creation
+pvc and pv creation
+redis deployement 
+psql ep and psql svc creation
+helm chart and yaml file changes
+kafka topic creation
+secret creation
+hydra command and hydra configuration
+db and schema creation
+argocd pipeline creation
+ingress creation
+
+
+
+
+
+
+
+
+ingress nodes
+dora-cluster1-node-193d530ea1b
+dora-cluster1-node-193d5376a48
+dora-cluster1-node-193d537adbb
+
+
+
+common nodes
+dora-cluster1-node-193d537f423
+dora-cluster1-node-193d5383bbd
+dora-cluster1-node-193d9cacfa8
+dora-cluster1-node-193d9cb10e1
+dora-cluster1-node-193d9cb54d1
+dora-cluster1-node-193d9cb8e66
+dora-cluster1-node-193d9cbcecf
+
+
+
+kubectl label nodes dora-cluster1-node-194f8fa11ac k8s.gtkops.in/role=common role=common ;
+kubectl taint node  dora-cluster1-node-194f8fa11ac taints.k8s.gtkops.in/role=common:NoSchedule
+
+
+
+
+greythr nodes
+dora-cluster1-node-193d9d0d05e
+dora-cluster1-node-193d9d10ef0
+dora-cluster1-node-193d9d14d17
+dora-cluster1-node-193d9d18bf9
+dora-cluster1-node-193d9d1c911
+dora-cluster1-node-193d9d20a52
+dora-cluster1-node-193d9d2469c
+dora-cluster1-node-193d9d287a3
+dora-cluster1-node-193d9d2c9eb
+dora-cluster1-node-193d9d30ac2
+dora-cluster1-node-193d9dcf97b
+dora-cluster1-node-193d9dd42ed
+dora-cluster1-node-193d9dd8cf8
+dora-cluster1-node-193d9ddd1a8
+dora-cluster1-node-193d9de1138
+dora-cluster1-node-193d9de5082
+dora-cluster1-node-193d9de8da9
+dora-cluster1-node-193d9ded05b
+dora-cluster1-node-193d9df12f3
+dora-cluster1-node-193d9df52ba
+dora-cluster1-node-193d9e96f2d
+
+
+
+not labeles 
+
+dora-cluster1-node-193d9e9baf7
+dora-cluster1-node-193d9ea05d0
+dora-cluster1-node-193d9ea4a98
+
+
+
+
+
+
+
+
+
+kubectl label nodes dora-cluster1-node-194f8fa11ac  k8s.gtkops.in/role=greythr role=greythr ;
+kubectl taint node  dora-cluster1-node-194f8fa11ac taints.k8s.gtkops.in/role=greythr:NoSchedule
+
+
+kubectl label nodes dora-cluster1-node-194f8fa11ac k8s.gtkops.in/role-
+kubectl label nodes dora-cluster1-node-194f8fa11ac role-
+
+kubectl taint nodes dora-cluster1-node-193d9e96f2d taints.k8s.gtkops.in/role=common:NoSchedule-
+
+
+
+
+
+dora-cluster-control-19247d2a391

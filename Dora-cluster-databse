@@ -1,0 +1,122 @@
+
+psql -h 10.0.5.212 -p 6432 -U majordomo gttest,forms,corehr,payroll,gtrecruit 
+
+psql -h 192.168.221.139 -p 6432 -U majordomo    gtpay,gtchat,gtfeeds,gtqsg,nexora
+
+
+psql -h 10.0.5.49 -p 6432 -U majordomo  gtpoi, gttask,gtflow,gtgrt
+
+psql -h  192.168.221.141 -p 6432 -U majordomo    devstage
+
+psql -h  192.168.221.133  -p 6432 -U majordomo  att,gtleave,gtfree
+
+psql -h  192.168.221.132 -p 6432 -U majordomo gtmobile,gtapi,gtevent,gtbot
+
+
+
+psql -h 192.168.221.131 -p 6432 -U majordomo goal, zyra, kyle
+
+
+select cid,propertykey,propertyvalue from app_properties where propertykey ilike '%url%';
+
+
+to replace keyword-       update app_properties set propertyvalue=replace(propertyvalue,'devstage','gtrecruit');
+                          update app_properties set propertyvalue=replace(propertyvalue,'gr8hr3','gr8hr2');
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Events db -changes
+
+select * from event_type_kafka_topic;
+
+
+update event_type_kafka_topic set kafkatopic='payroll-leave' where kafkatopickey='event.kafka.leave.topic';
+update event_type_kafka_topic set kafkatopic='payroll-dak-event' where kafkatopickey='event.kafka.dak.topic';
+update event_type_kafka_topic set kafkatopic='payroll-attendance-topic' where kafkatopickey='event.kafka.attendance.topic';
+update event_type_kafka_topic set kafkatopic='payroll-attendance' where cid = 82;
+update event_type_kafka_topic set kafkatopic='payroll-daily' where cid = 53;
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Updated redis in base db ---- single://redis-pwd-master.common:6379/4
+
+
+select cid,propertykey,propertyvalue from app_properties where propertykey ilike '%redis%';
+
+update app_properties set propertyvalue= 'single://redis-gtrecruit-master.gtrecruit:6379/4' where cid =738;
+update app_properties set propertyvalue= 'single://redis-gtrecruit-master.gtrecruit:6379/4' where cid =939;
+update app_properties set propertyvalue= null where cid =887;
+update app_properties set propertyvalue= null where cid =940;
+update app_properties set propertyvalue='false' where cid =886;
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Hydra changes in database
+select cid,propertykey,propertyvalue from app_properties where propertykey ilike '%hydra%';
+
+
+
+ 
+update app_properties set propertyvalue='http://gtrecruit-hydra-hydra.gtrecruit:4445' where cid =815;
+
+update tblserverinfo set ipaddress='10.0.5.212' where cid =30;
+update tblserverinfo set publicconnectionurl='jdbc:postgresql://10.0.5.212:6432/gtrecruit' where cid =30;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Zookeeper 
+
+update app_properties set propertyvalue='zookeeper.common:2181' where cid =732;
+
+
+
+hydra - as super user we need to create
+
+
+jdbc:postgresql://psql.payroll:6432/payroll
+jdbc:postgresql://psql.payroll:6432/payroll
+
+jdbc:postgresql://postgres1.payroll:6432/payroll
+
+update tblserverinfo set connectionurl='jdbc:postgresql://psql.payroll:6432/payroll' where cid=37;
+
+
+
+
+
+
+_____________________________________________________________________________________________________________________________________________________________________
+
+pg_dump -f /tmp/gt_demo_masterdemoin.sql -F p -n gt_demo_masterdemoin gtapi
+
+sudo su ubuntu
+sudo su hemanth
+
+sudo chown hemanth:hemanth
+
+
+ scp hemanth@192.168.211.146:/tmp/gt_demo_masterdemottest.tgz /tmp/gt_demo_masterdemottest.tgz
+
+
+scp /tmp/gt_demo_masterdemottest.tgz 10.0.3.161:/tmp/
+
+
+
+tar -czvf devstage_public.tgz public.sql
+
+
+
+
+/etc/pgbouncer/pgbouncer-ini.sh
+/etc/pgbouncer/create_userlist.sh
+
+root@postgres2:/home/hemanth# /etc/init.d/postgresql restart
+root@postgres2:/home/hemanth# /etc/init.d/pgbouncer restart
+
+
